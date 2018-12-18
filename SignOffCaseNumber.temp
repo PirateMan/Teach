@@ -1,0 +1,9 @@
+<%@ Page Language="C#" MasterPageFile="SignOffCaseNumber.master" 
+CodeFileBaseClass="BasePage" AutoEventWireup="true" CodeFile="CommonCodeBehind.cs" 
+Inherits="CommonCodeBehind" PageID="[ID]" Title="[Title]" MetaKeywords="modulePage" MetaDescription="signoffsheet" %>
+<asp:Content ID="Content2" ContentPlaceHolderID="titleCPH" Runat="Server">
+[titleContent]
+</asp:Content>
+<asp:Content ID="Content1" ContentPlaceHolderID="headingCPH" Runat="Server">
+[PageContent]
+</asp:Content>
