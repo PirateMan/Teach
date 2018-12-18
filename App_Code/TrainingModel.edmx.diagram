@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="84ecd08c4d424f19b6eb50a0d5b42575" Name="Diagram1">
+        <EntityTypeShape EntityType="serverBUModel.TrainingPackage_Categories" Width="2.125" PointX="7.25" PointY="5.375" />
+        <EntityTypeShape EntityType="serverBUModel.TrainingPackage_MeetingTargets" Width="2.625" PointX="9.875" PointY="1" />
+        <EntityTypeShape EntityType="serverBUModel.TrainingPackage_Modules" Width="2.125" PointX="0.5" PointY="5.5" />
+        <EntityTypeShape EntityType="serverBUModel.TrainingPackage_Tasks" Width="2" PointX="3.125" PointY="5.5" />
+        <EntityTypeShape EntityType="serverBUModel.TrainingPackage_TaskSubmissions" Width="3" PointX="5.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="serverBUModel.TrainingPackage_User" Width="2" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="serverBUModel.TrainingPackage_UserRoles" Width="1.875" PointX="0.625" PointY="1.125" />
+        <AssociationConnector Association="serverBUModel.FK_Module_ID" />
+        <AssociationConnector Association="serverBUModel.FK_Task_ID" />
+        <AssociationConnector Association="serverBUModel.FK_User_ID" />
+        <AssociationConnector Association="serverBUModel.FK_UserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

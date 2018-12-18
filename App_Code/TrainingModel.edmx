@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="serverBUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TrainingPackage_Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_MeetingTargets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Target" Type="nvarchar(max)" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="TargetDesc" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Completion" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MODULE" Type="nvarchar" MaxLength="100" />
+          <Property Name="CATEGORY_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_Tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MODULE_ID" Type="int" Nullable="false" />
+          <Property Name="TASK_DESC" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_TaskSubmissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="int" Nullable="false" />
+          <Property Name="TASK_ID" Type="int" Nullable="false" />
+          <Property Name="DEMO_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="DEMO_ON" Type="nvarchar" MaxLength="12" />
+          <Property Name="DATE" Type="nvarchar" MaxLength="50" />
+          <Property Name="COMPLETION" Type="nvarchar" MaxLength="50" />
+          <Property Name="APPROVED_BY" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasswordResetCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="Authorisation" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserRoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_UserRoles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Module_ID">
+          <End Role="TrainingPackage_Modules" Type="Self.TrainingPackage_Modules" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TrainingPackage_Tasks" Type="Self.TrainingPackage_Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingPackage_Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrainingPackage_Tasks">
+              <PropertyRef Name="MODULE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_ID">
+          <End Role="TrainingPackage_Tasks" Type="Self.TrainingPackage_Tasks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TrainingPackage_TaskSubmissions" Type="Self.TrainingPackage_TaskSubmissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingPackage_Tasks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrainingPackage_TaskSubmissions">
+              <PropertyRef Name="TASK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_ID">
+          <End Role="TrainingPackage_User" Type="Self.TrainingPackage_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TrainingPackage_TaskSubmissions" Type="Self.TrainingPackage_TaskSubmissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingPackage_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrainingPackage_TaskSubmissions">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles">
+          <End Role="TrainingPackage_UserRoles" Type="Self.TrainingPackage_UserRoles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TrainingPackage_User" Type="Self.TrainingPackage_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingPackage_UserRoles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrainingPackage_User">
+              <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="TrainingPackage_ApprovalProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="TrainingPackage_ApprovalProcedure_Task" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+          <Parameter Name="taskName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TrainingPackage_SignOffCaseNumber_Table" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+          <Parameter Name="taskName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TrainingPackage_SignOffDefault_Table" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+          <Parameter Name="taskName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="TrainingPackage_SignOffOne_Table" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+          <Parameter Name="taskName" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="serverBUModelStoreContainer">
+          <EntitySet Name="TrainingPackage_Categories" EntityType="Self.TrainingPackage_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingPackage_MeetingTargets" EntityType="Self.TrainingPackage_MeetingTargets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingPackage_Modules" EntityType="Self.TrainingPackage_Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingPackage_Tasks" EntityType="Self.TrainingPackage_Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingPackage_TaskSubmissions" EntityType="Self.TrainingPackage_TaskSubmissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingPackage_User" EntityType="Self.TrainingPackage_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingPackage_UserRoles" EntityType="Self.TrainingPackage_UserRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Module_ID" Association="Self.FK_Module_ID">
+            <End Role="TrainingPackage_Modules" EntitySet="TrainingPackage_Modules" />
+            <End Role="TrainingPackage_Tasks" EntitySet="TrainingPackage_Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_ID" Association="Self.FK_Task_ID">
+            <End Role="TrainingPackage_Tasks" EntitySet="TrainingPackage_Tasks" />
+            <End Role="TrainingPackage_TaskSubmissions" EntitySet="TrainingPackage_TaskSubmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_ID" Association="Self.FK_User_ID">
+            <End Role="TrainingPackage_User" EntitySet="TrainingPackage_User" />
+            <End Role="TrainingPackage_TaskSubmissions" EntitySet="TrainingPackage_TaskSubmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles" Association="Self.FK_UserRoles">
+            <End Role="TrainingPackage_UserRoles" EntitySet="TrainingPackage_UserRoles" />
+            <End Role="TrainingPackage_User" EntitySet="TrainingPackage_User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="serverBUModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="serverBUEntitiesConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TrainingPackage_Categories" EntityType="serverBUModel.TrainingPackage_Categories" />
+          <EntitySet Name="TrainingPackage_MeetingTargets" EntityType="serverBUModel.TrainingPackage_MeetingTargets" />
+          <EntitySet Name="TrainingPackage_Modules" EntityType="serverBUModel.TrainingPackage_Modules" />
+          <EntitySet Name="TrainingPackage_Tasks" EntityType="serverBUModel.TrainingPackage_Tasks" />
+          <EntitySet Name="TrainingPackage_TaskSubmissions" EntityType="serverBUModel.TrainingPackage_TaskSubmissions" />
+          <EntitySet Name="TrainingPackage_User" EntityType="serverBUModel.TrainingPackage_User" />
+          <EntitySet Name="TrainingPackage_UserRoles" EntityType="serverBUModel.TrainingPackage_UserRoles" />
+          <AssociationSet Name="FK_Module_ID" Association="serverBUModel.FK_Module_ID">
+            <End Role="TrainingPackage_Modules" EntitySet="TrainingPackage_Modules" />
+            <End Role="TrainingPackage_Tasks" EntitySet="TrainingPackage_Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_ID" Association="serverBUModel.FK_Task_ID">
+            <End Role="TrainingPackage_Tasks" EntitySet="TrainingPackage_Tasks" />
+            <End Role="TrainingPackage_TaskSubmissions" EntitySet="TrainingPackage_TaskSubmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_ID" Association="serverBUModel.FK_User_ID">
+            <End Role="TrainingPackage_User" EntitySet="TrainingPackage_User" />
+            <End Role="TrainingPackage_TaskSubmissions" EntitySet="TrainingPackage_TaskSubmissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles" Association="serverBUModel.FK_UserRoles">
+            <End Role="TrainingPackage_UserRoles" EntitySet="TrainingPackage_UserRoles" />
+            <End Role="TrainingPackage_User" EntitySet="TrainingPackage_User" />
+          </AssociationSet>
+          <FunctionImport Name="TrainingPackage_ApprovalProcedure" ReturnType="Collection(serverBUModel.TrainingPackage_ApprovalProcedure_Result)">
+          <Parameter Name="userID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TrainingPackage_ApprovalProcedure_Task" ReturnType="Collection(serverBUModel.TrainingPackage_ApprovalProcedure_Task_Result)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="taskName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TrainingPackage_SignOffCaseNumber_Table" ReturnType="Collection(serverBUModel.TrainingPackage_SignOffCaseNumber_Table_Result)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="taskName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TrainingPackage_SignOffDefault_Table" ReturnType="Collection(serverBUModel.TrainingPackage_SignOffDefault_Table_Result)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="taskName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="TrainingPackage_SignOffOne_Table" ReturnType="Collection(serverBUModel.TrainingPackage_SignOffOne_Table_Result)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="taskName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="TrainingPackage_Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_MeetingTargets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Target" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TargetDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Completion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MODULE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CATEGORY_ID" Type="Int32" />
+          <NavigationProperty Name="TrainingPackage_Tasks" Relationship="serverBUModel.FK_Module_ID" FromRole="TrainingPackage_Modules" ToRole="TrainingPackage_Tasks" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_Tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MODULE_ID" Type="Int32" Nullable="false" />
+          <Property Name="TASK_DESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TrainingPackage_Modules" Relationship="serverBUModel.FK_Module_ID" FromRole="TrainingPackage_Tasks" ToRole="TrainingPackage_Modules" />
+          <NavigationProperty Name="TrainingPackage_TaskSubmissions" Relationship="serverBUModel.FK_Task_ID" FromRole="TrainingPackage_Tasks" ToRole="TrainingPackage_TaskSubmissions" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_TaskSubmissions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="Int32" Nullable="false" />
+          <Property Name="TASK_ID" Type="Int32" Nullable="false" />
+          <Property Name="DEMO_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DEMO_ON" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="DATE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COMPLETION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="APPROVED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TrainingPackage_Tasks" Relationship="serverBUModel.FK_Task_ID" FromRole="TrainingPackage_TaskSubmissions" ToRole="TrainingPackage_Tasks" />
+          <NavigationProperty Name="TrainingPackage_User" Relationship="serverBUModel.FK_User_ID" FromRole="TrainingPackage_TaskSubmissions" ToRole="TrainingPackage_User" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Authorisation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserRoleID" Type="Int32" />
+          <NavigationProperty Name="TrainingPackage_TaskSubmissions" Relationship="serverBUModel.FK_User_ID" FromRole="TrainingPackage_User" ToRole="TrainingPackage_TaskSubmissions" />
+          <NavigationProperty Name="TrainingPackage_UserRoles" Relationship="serverBUModel.FK_UserRoles" FromRole="TrainingPackage_User" ToRole="TrainingPackage_UserRoles" />
+        </EntityType>
+        <EntityType Name="TrainingPackage_UserRoles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TrainingPackage_User" Relationship="serverBUModel.FK_UserRoles" FromRole="TrainingPackage_UserRoles" ToRole="TrainingPackage_User" />
+        </EntityType>
+        <Association Name="FK_Module_ID">
+          <End Type="serverBUModel.TrainingPackage_Modules" Role="TrainingPackage_Modules" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serverBUModel.TrainingPackage_Tasks" Role="TrainingPackage_Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingPackage_Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrainingPackage_Tasks">
+              <PropertyRef Name="MODULE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_ID">
+          <End Type="serverBUModel.TrainingPackage_Tasks" Role="TrainingPackage_Tasks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serverBUModel.TrainingPackage_TaskSubmissions" Role="TrainingPackage_TaskSubmissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingPackage_Tasks">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrainingPackage_TaskSubmissions">
+              <PropertyRef Name="TASK_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_ID">
+          <End Type="serverBUModel.TrainingPackage_User" Role="TrainingPackage_User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serverBUModel.TrainingPackage_TaskSubmissions" Role="TrainingPackage_TaskSubmissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingPackage_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrainingPackage_TaskSubmissions">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles">
+          <End Type="serverBUModel.TrainingPackage_UserRoles" Role="TrainingPackage_UserRoles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="serverBUModel.TrainingPackage_User" Role="TrainingPackage_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingPackage_UserRoles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TrainingPackage_User">
+              <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="TrainingPackage_ApprovalProcedure_Result">
+          <Property Type="String" Name="ModuleName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Task" Nullable="true" />
+          <Property Type="String" Name="DemoBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="demoOn" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="date" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="completion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="approval" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="TrainingPackage_ApprovalProcedure_Task_Result">
+          <Property Type="String" Name="Task" Nullable="true" />
+          <Property Type="String" Name="DemoBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="demoOn" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="date" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="completion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="approval" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="TrainingPackage_SignOffCaseNumber_Table_Result">
+          <Property Type="String" Name="taskDesc" Nullable="true" />
+          <Property Type="String" Name="demoOn" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="date" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="completion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="approval" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="TrainingPackage_SignOffDefault_Table_Result">
+          <Property Type="String" Name="taskDesc" Nullable="true" />
+          <Property Type="String" Name="date" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="completion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="approval" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="TrainingPackage_SignOffOne_Table_Result">
+          <Property Type="String" Name="taskDesc" Nullable="true" />
+          <Property Type="String" Name="demoBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="date" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="completion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="approval" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="serverBUModelStoreContainer" CdmEntityContainer="serverBUEntitiesConnection">
+          <EntitySetMapping Name="TrainingPackage_Categories">
+            <EntityTypeMapping TypeName="serverBUModel.TrainingPackage_Categories">
+              <MappingFragment StoreEntitySet="TrainingPackage_Categories">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingPackage_MeetingTargets">
+            <EntityTypeMapping TypeName="serverBUModel.TrainingPackage_MeetingTargets">
+              <MappingFragment StoreEntitySet="TrainingPackage_MeetingTargets">
+                <ScalarProperty Name="Completion" ColumnName="Completion" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TargetDesc" ColumnName="TargetDesc" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Target" ColumnName="Target" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingPackage_Modules">
+            <EntityTypeMapping TypeName="serverBUModel.TrainingPackage_Modules">
+              <MappingFragment StoreEntitySet="TrainingPackage_Modules">
+                <ScalarProperty Name="CATEGORY_ID" ColumnName="CATEGORY_ID" />
+                <ScalarProperty Name="MODULE" ColumnName="MODULE" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingPackage_Tasks">
+            <EntityTypeMapping TypeName="serverBUModel.TrainingPackage_Tasks">
+              <MappingFragment StoreEntitySet="TrainingPackage_Tasks">
+                <ScalarProperty Name="TASK_DESC" ColumnName="TASK_DESC" />
+                <ScalarProperty Name="MODULE_ID" ColumnName="MODULE_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingPackage_TaskSubmissions">
+            <EntityTypeMapping TypeName="serverBUModel.TrainingPackage_TaskSubmissions">
+              <MappingFragment StoreEntitySet="TrainingPackage_TaskSubmissions">
+                <ScalarProperty Name="APPROVED_BY" ColumnName="APPROVED_BY" />
+                <ScalarProperty Name="COMPLETION" ColumnName="COMPLETION" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="DEMO_ON" ColumnName="DEMO_ON" />
+                <ScalarProperty Name="DEMO_BY" ColumnName="DEMO_BY" />
+                <ScalarProperty Name="TASK_ID" ColumnName="TASK_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingPackage_User">
+            <EntityTypeMapping TypeName="serverBUModel.TrainingPackage_User">
+              <MappingFragment StoreEntitySet="TrainingPackage_User">
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+                <ScalarProperty Name="Authorisation" ColumnName="Authorisation" />
+                <ScalarProperty Name="PasswordResetCode" ColumnName="PasswordResetCode" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingPackage_UserRoles">
+            <EntityTypeMapping TypeName="serverBUModel.TrainingPackage_UserRoles">
+              <MappingFragment StoreEntitySet="TrainingPackage_UserRoles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="TrainingPackage_ApprovalProcedure" FunctionName="serverBUModel.Store.TrainingPackage_ApprovalProcedure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="serverBUModel.TrainingPackage_ApprovalProcedure_Result">
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="DemoBy" ColumnName="DemoBy" />
+                <ScalarProperty Name="demoOn" ColumnName="demoOn" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="completion" ColumnName="completion" />
+                <ScalarProperty Name="approval" ColumnName="approval" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TrainingPackage_ApprovalProcedure_Task" FunctionName="serverBUModel.Store.TrainingPackage_ApprovalProcedure_Task">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="serverBUModel.TrainingPackage_ApprovalProcedure_Task_Result">
+                <ScalarProperty Name="Task" ColumnName="Task" />
+                <ScalarProperty Name="DemoBy" ColumnName="DemoBy" />
+                <ScalarProperty Name="demoOn" ColumnName="demoOn" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="completion" ColumnName="completion" />
+                <ScalarProperty Name="approval" ColumnName="approval" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TrainingPackage_SignOffCaseNumber_Table" FunctionName="serverBUModel.Store.TrainingPackage_SignOffCaseNumber_Table">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="serverBUModel.TrainingPackage_SignOffCaseNumber_Table_Result">
+                <ScalarProperty Name="taskDesc" ColumnName="taskDesc" />
+                <ScalarProperty Name="demoOn" ColumnName="demoOn" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="completion" ColumnName="completion" />
+                <ScalarProperty Name="approval" ColumnName="approval" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TrainingPackage_SignOffDefault_Table" FunctionName="serverBUModel.Store.TrainingPackage_SignOffDefault_Table">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="serverBUModel.TrainingPackage_SignOffDefault_Table_Result">
+                <ScalarProperty Name="taskDesc" ColumnName="taskDesc" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="completion" ColumnName="completion" />
+                <ScalarProperty Name="approval" ColumnName="approval" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TrainingPackage_SignOffOne_Table" FunctionName="serverBUModel.Store.TrainingPackage_SignOffOne_Table">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="serverBUModel.TrainingPackage_SignOffOne_Table_Result">
+                <ScalarProperty Name="taskDesc" ColumnName="taskDesc" />
+                <ScalarProperty Name="demoBy" ColumnName="demoBy" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="completion" ColumnName="completion" />
+                <ScalarProperty Name="approval" ColumnName="approval" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
