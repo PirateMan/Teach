@@ -49,7 +49,7 @@
 
        <div class="container-fluid" id="topBar">
             <div class="auto-style2" id="titleText">
-                <p><b id="trainingPackageText"><a href="Home.aspx">Training Package</a></b> | Home</p>
+                <p><b id="trainingPackageText"><a href="../Member/Home.aspx">Training Package</a></b> | Home</p>
             </div>
             <div class="auto-style1" id="loggedOnUser"> Welcome
                 <asp:LoginName ID="LoginName1" runat="server" />
@@ -66,12 +66,12 @@
         <nav class="navbar-expand" id="navbarContainer">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+            <%--        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">--%>
+       <%--                 <span class="sr-only">Toggle navigation</span>--%>
+         <%--               <span class="icon-bar"></span>--%>
+    <%--                    <span class="icon-bar"></span>--%>
+  <%--                      <span class="icon-bar"></span>--%>
+                  <%--  </button>--%>
                 </div>
 
 
@@ -80,7 +80,7 @@
 
                         <!-- Home -->
                         <li class="dropdown hvr-underline-from-center" id="homeNav" >
-                            <a href="Member_Home.aspx">Home </a>
+                            <a href="../Member/Home.aspx">Home </a>
                         </li>
 
 
@@ -97,25 +97,19 @@
 
 
                         <!-- Mentorship -->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mentorship <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="../Member/appraisal.aspx">Appraisal</a></li>
-                            </ul>
+                        <li class="dropdown hvr-underline-from-center">
+                            <a href="#" class="btn" role="button">Mentorship </a>
                         </li>
 
 
                         <!-- Techniques -->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Techniques <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <asp:Literal ID="techniquesLiteral" runat="server"></asp:Literal>
-                            </ul>
+                        <li class="dropdown hvr-underline-from-center">
+                            <a href="../Member/Techniques.aspx">Techniques</a>
                         </li>
 
 
                         <!-- Data Entry -->
-                        <li class="dropdown">
+                        <li class="dropdown hvr-underline-from-center">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Entry <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <asp:Literal ID="dataEntryLiteral" runat="server"></asp:Literal>
@@ -124,35 +118,27 @@
 
 
                         <!-- Dose Calculations -->
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dose Calculations <span class="caret"></span></a>
+                        <li class="dropdown hvr-underline-from-center">
+                            <a href="#" >Dose Calculations</a>
                             <ul class="dropdown-menu">
                                 <asp:Literal ID="doseCalcLiteral" runat="server"></asp:Literal>
                             </ul>
                         </li>
+
                         <%--admin position--%>
                          <!-- Admin -->
                         <%--style="visibility:hidden"--%>
                         <li runat= "server" id="adminDrop" class="dropdown" >
                             <a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-
+                            <ul class="dropdown-menu">                                
                                 <li><a href="Approvals.aspx">Approvals</a></li>
-
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Edit Site<span class="caret-right"> </span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="CreatePage.aspx">Add Page</a></li>
-                                        <li><a href="SignOffSheetEdit.aspx">Add Task</a></li>
-                                        <li><a href="DeletePage.aspx">Delete Page</a></li>
-                                    </ul>
-                                </li>
-
                                 <li><a href="AuthoriseUser.aspx">User Database</a></li>
-                        
+                                <li role ="separator" class="dropdown-divider"</li>
+                                <li><a href="../Admin/CreatePage.aspx">Add Task Header</a></li>
+                                <li><a href="SignOffSheetEdit.aspx">Sign Off Task</a></li>
+                                <li><a href="DeletePage.aspx">Delete Task</a></li>                     
                             </ul>
-                        </li>
-                        
+                        </li>                        
                     </ul>
 
                 </div>

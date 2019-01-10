@@ -20,12 +20,13 @@ public partial class Member_MemberMaster : System.Web.UI.MasterPage
         //populate navbar with pages
         if (!IsPostBack)
         {
-            List<string> menuList = new List<string>();
-            menuList = MemberMethods.populateMemberMenu();
-            inductionLiteral.Text = menuList[0];
-            techniquesLiteral.Text = menuList[1];
-            dataEntryLiteral.Text = menuList[2];
-            doseCalcLiteral.Text = menuList[3];
+            ///Generates list of items in each section
+            //List<string> menuList = new List<string>();
+            //menuList = MemberMethods.populateMemberMenu();
+            //inductionLiteral.Text = menuList[0];
+            //techniquesLiteral.Text = menuList[1];
+            //dataEntryLiteral.Text = menuList[2];
+            //doseCalcLiteral.Text = menuList[3];
 
             if (userRole == "AdminAuthorised" || userRole == "SuperAuthorised")
             {
