@@ -1,0 +1,152 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MemberMaster.master.cs" Inherits="Member_MemberMaster" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" id="rolesHtml">
+<head runat="server">
+
+    <meta name="viewport" http-equiv="X-UA-Compatible" charset="utf-8" content="IE=edge, chrome=1" />
+    
+ <!-- js -->
+
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="../Scripts/navSubMenu.js"></script>
+
+
+    <!-- style -->
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Stylesheet/mainStyle.css" rel="stylesheet" />
+    <link rel="icon" href="../Images/FAVICON.png" />
+
+    <%--headPH1 placeholder for page head--%>
+    <asp:ContentPlaceHolder id="headPH1" runat="server"></asp:ContentPlaceHolder>
+
+    <style type="text/css">
+        .auto-style1 {
+            position: relative;
+            width: 100%;
+            height: 80px;
+        }
+        .auto-style2 {
+            position: relative;
+            width: 100%;
+            height: 47px;
+        }
+        .auto-style3 {
+            width: 100%;
+            height: 40%;
+        }
+    </style>
+
+</head>
+<body>
+    <form id="masterForm1" runat="server">
+        <!-- scriptmanager -->
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
+
+       <div class="container-fluid" id="topBar">
+            <div class="auto-style2" id="titleText">
+                <p><b id="trainingPackageText"><a href="../Member/Home.aspx">Training Package</a></b> | Home</p>
+            </div>
+            <div class="auto-style1" id="loggedOnUser"> Welcome
+                <asp:LoginName ID="LoginName1" runat="server" />
+                | <a>
+                    <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                </a>
+            </div>
+            <br />
+        </div>
+
+        <div class="container-fluid" id="underTopBar"></div>
+
+        <!-- navigation -->
+        <nav class="navbar-expand" id="navbarContainer">
+            <div class="container">
+                <div class="navbar-header">
+            <%--        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">--%>
+       <%--                 <span class="sr-only">Toggle navigation</span>--%>
+         <%--               <span class="icon-bar"></span>--%>
+    <%--                    <span class="icon-bar"></span>--%>
+  <%--                      <span class="icon-bar"></span>--%>
+                  <%--  </button>--%>
+                </div>
+
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav" id="navBarItems">
+
+                        <!-- Home -->
+                        <li class="dropdown hvr-underline-from-center" id="homeNav" >
+                            <a href="../Member/Home.aspx">Home </a>
+                        </li>
+
+
+                        <!-- Induction -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Induction <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../Member/Roles.aspx">Roles & Responsibilities</a></li>
+                                <li><a href="../Member/MapTour.aspx">Department Map</a></li>
+                                <li><a href="../Member/PhoneNumbers.aspx">Phone Numbers</a></li>
+                                <li><asp:Literal ID="inductionLiteral" runat="server"></asp:Literal></li>
+                            </ul>
+                        </li>
+
+
+                        <!-- Mentorship -->
+                        <li class="dropdown hvr-underline-from-center">
+                            <a href="#" class="btn" role="button">Mentorship </a>
+                        </li>
+
+
+                        <!-- Techniques -->
+                        <li class="dropdown hvr-underline-from-center">
+                            <a href="../Member/Techniques.aspx">Techniques</a>
+                        </li>
+
+
+                        <!-- Data Entry -->
+                        <li class="dropdown hvr-underline-from-center">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Entry <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <asp:Literal ID="dataEntryLiteral" runat="server"></asp:Literal>
+                            </ul>
+                        </li>
+
+
+                        <!-- Dose Calculations -->
+                        <li class="dropdown hvr-underline-from-center">
+                            <a href="#" >Dose Calculations</a>
+                            <ul class="dropdown-menu">
+                                <asp:Literal ID="doseCalcLiteral" runat="server"></asp:Literal>
+                            </ul>
+                        </li>
+
+                        <%--admin position--%>
+                         <!-- Admin -->
+                        <%--style="visibility:hidden"--%>
+                        <li runat= "server" id="adminDrop" class="dropdown" >
+                            <a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                            <ul class="dropdown-menu">                                
+                                <li><a href="Approvals.aspx">Approvals</a></li>
+                                <li><a href="../Admin/AuthoriseUser.aspx">User Database</a></li>
+                                <li role ="separator" class="dropdown-divider"></li>
+                                <li><a href="../Admin/CreatePage.aspx">Add Task Header</a></li>
+                                <li><a href="SignOffSheetEdit.aspx">Sign Off Task</a></li>
+                                <li><a href="DeletePage.aspx">Delete Task</a></li>                     
+                            </ul>
+                        </li>                        
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <asp:ContentPlaceHolder id="BodyPH1" runat="server"></asp:ContentPlaceHolder>
+
+
+
+    </form>
+</body>
+</html>
