@@ -50,7 +50,7 @@ public class BasePage : System.Web.UI.Page
     //    int taskID = 0;
     //    int rowCount = 0;
 
-    //    using (TrainingDBEntities1 db = new TrainingDBEntities1 ())
+    //    using (TrainingDBEntities1 db = new TrainingDBEntities1())
     //    {
 
     //        userID = (from o in db.Users
@@ -70,7 +70,7 @@ public class BasePage : System.Web.UI.Page
     //        //Make the task row if there is not one already
     //        if (rowCount < 1)
     //        {
-    //            for (int i = 0; i < 3; i++)                
+    //            for (int i = 0; i < 3; i++)
     //            {
     //                //insert
     //                Case newcase = new Case()
@@ -90,7 +90,6 @@ public class BasePage : System.Web.UI.Page
     //        else
     //        {
     //            //update
-
     //            var task = (from t in db.Cases
     //                        where t.User_ID == userID && t.Task_ID == taskID
     //                        select t).FirstOrDefault();

@@ -9,6 +9,28 @@ using System.Web;
 public class MemberMethods
 {
     /// <summary>
+    /// Returns all tasks of technique module
+    /// </summary>
+    public static List<int> FillTechniquesTable()
+    {
+        List<int> taskList = new List<int>();
+
+        using (TrainingDBEntities1 db = new TrainingDBEntities1())
+        {
+            var techniqueTasks = (from i in db.Tasks
+                                    where i.Module_Type_ID == 2
+                                    select i.Task_Name).ToList();            
+        }
+
+        return taskList;
+
+
+    }
+
+
+
+
+    /// <summary>
     /// Fill member navbar
     /// </summary>
     /// <returns></returns>
@@ -68,8 +90,9 @@ public class MemberMethods
             
         }
 
-
-        //Fill in created pages in navbar
+        ///<summary>
+        ///List titles
+        ///</summary>
         List<string> menuList = new List<string>();
 
         //menuList.Add(inductionHtml);

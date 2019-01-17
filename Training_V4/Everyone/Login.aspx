@@ -31,7 +31,7 @@
             
             <div class="col-md-4"></div>
             
-            <div class="col-md-4" id="regContainer">
+            <div class="col-md-6" id="regContainer">
                 
                 <asp:Login ID="LoginControl" runat="server" OnAuthenticate="LoginControl_Authenticate">
 
@@ -60,10 +60,8 @@
                 </asp:Login>
             </div>
 
-            <div class="col-md-4"></div>
+            <div class="col-md-2"><a href="Registration.aspx">Register an account</a></div>
 
         </div>
     </form>
 
-</body>
-</html>

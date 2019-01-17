@@ -54,7 +54,7 @@ public partial class Admin_CreatePage : System.Web.UI.Page
     /// <summary>
     /// Create 3 cases for a user on a given task UID
     /// </summary>
-    private void CreateCasesInDB(int taskUID)
+    private void CreateCasesInDB(string taskName)
     {
         string username = HttpContext.Current.User.Identity.Name;
 
@@ -65,12 +65,15 @@ public partial class Admin_CreatePage : System.Web.UI.Page
                           where j.Username == username
                           select j.ID).SingleOrDefault();
 
+            var taskID = (from j in db.Tasks
+                          where j.Task_Name == taskName
+                          select j.ID).SingleOrDefault();
             for (int i = 1; i < 4; i++)
             {
                 Case caseName = new Case()
                 {
                     Case_Number = i,
-                    Task_ID = taskUID,
+                    Task_ID = taskID,
                     User_ID = userID
                 };
 
@@ -179,16 +182,16 @@ public partial class Admin_CreatePage : System.Web.UI.Page
 
                 //give random ID
                 int UID = 0;
-                string SaveFilePath = "";
-                string SaveFileName = "";
+                //string SaveFilePath = "";
+                //string SaveFileName = "";
                 Random ran = new Random();
                 UID = ran.Next();
 
                 //Creates page file name 
-                string PageName = GeneralMethods.StripURLNotAllowedChars(txtTitle.Text);
-                SaveFileName = "\\" + PageName + ".aspx";
-                SaveFilePath = root + "\\Member\\" + SaveFileName;
-                FileStream fsSave = File.Create(SaveFilePath);
+                //string PageName = GeneralMethods.StripURLNotAllowedChars(txtTitle.Text);
+                //SaveFileName = "\\" + PageName + ".aspx";
+                //SaveFilePath = root + "\\Member\\" + SaveFileName;
+                //FileStream fsSave = File.Create(SaveFilePath);
 
                 //Replaces important parts of page using featured sectionas of template file
                 if (line != null)
@@ -198,15 +201,15 @@ public partial class Admin_CreatePage : System.Web.UI.Page
                     line.Replace("[titleContent]", "<div class='col-md-6' id='titleText'><p><b id='trainingPackageText'><a href='Home.aspx'>Training Package</a></b> | Sign-Off Sheet | " + txtTitle.Text + "</p></div>");
                     line.Replace("[ID]", UID.ToString());
 
-                    StreamWriter sw = null;
+                    //StreamWriter sw = null;
                     try
                     {
-                        sw = new StreamWriter(fsSave);
-                        sw.Write(line);
+                        //sw = new StreamWriter(fsSave);
+                        //sw.Write(line);
 
                         int moduleCategory = menuSectionDropDown.SelectedIndex;
                         createModuleInDB(moduleCategory, UID);
-                        CreateCasesInDB(UID);
+                        CreateCasesInDB(txtTitle.Text);
 
                     }
                     catch (Exception ex)
@@ -215,16 +218,16 @@ public partial class Admin_CreatePage : System.Web.UI.Page
                     }
                     finally
                     {
-                        sw.Close();
+                        //sw.Close();
                     }
                 }
 
-                string redirectLocation = "../Member/" + PageName + ".aspx";
-                Response.Redirect(redirectLocation);
+                //string redirectLocation = "../Member/" + PageName + ".aspx";
+                //Response.Redirect(redirectLocation);
             }
             else
             {
-                error_lbl.Text = "Error: Module name already exists";
+                error_lbl.Text = "Error: Task name already exists";
             }
         }
     }

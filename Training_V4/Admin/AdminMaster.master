@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MemberMaster.master.cs" Inherits="Member_MemberMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="Admin_AdminMaster" %>
 
 <!DOCTYPE html>
 
@@ -11,7 +11,6 @@
 
     <script src="../Scripts/jquery-3.3.1.min.js"></script>
     <script src="../Scripts/bootstrap.bundle.min.js"></script>
-    <script src="../Scripts/navSubMenu.js"></script>
 
 
     <!-- style -->
@@ -27,15 +26,14 @@
             position: relative;
             width: 100%;
             height: 80px;
+            left: 0px;
+            top: 0px;
         }
         .auto-style2 {
             position: relative;
             width: 100%;
             height: 47px;
-        }
-        .auto-style3 {
-            width: 100%;
-            height: 40%;
+
         }
     </style>
 
@@ -47,7 +45,7 @@
 
        <div class="container-fluid" id="topBar">
             <div class="auto-style2" id="titleText">
-                <p><b id="trainingPackageText"><a href="../Member/Home.aspx">Training Package</a></b> | Home</p>
+                <p><b id="trainingPackageText"><a href="Home.aspx">Training Package</a></b> | Home</p>
             </div>
             <div class="auto-style1" id="loggedOnUser"> Welcome
                 <asp:LoginName ID="LoginName1" runat="server" />
@@ -64,12 +62,12 @@
         <nav class="navbar-expand" id="navbarContainer">
             <div class="container">
                 <div class="navbar-header">
-            <%--        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">--%>
-       <%--                 <span class="sr-only">Toggle navigation</span>--%>
-         <%--               <span class="icon-bar"></span>--%>
-    <%--                    <span class="icon-bar"></span>--%>
-  <%--                      <span class="icon-bar"></span>--%>
-                  <%--  </button>--%>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
 
 
@@ -78,7 +76,7 @@
 
                         <!-- Home -->
                         <li class="dropdown hvr-underline-from-center" id="homeNav" >
-                            <a href="../Member/Home.aspx">Home </a>
+                            <a href="HomeAdmin.aspx">Home </a>
                         </li>
 
 
@@ -86,28 +84,34 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Induction <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="../Member/Roles.aspx">Roles & Responsibilities</a></li>
-                                <li><a href="../Member/MapTour.aspx">Department Map</a></li>
-                                <li><a href="../Member/PhoneNumbers.aspx">Phone Numbers</a></li>
+                                <li><a href="../MemberPages/Roles.aspx">Roles & Responsibilities</a></li>
+                                <li><a href="../MemberPages/MapTour.aspx">Department Map</a></li>
+                                <li><a href="../MemberPages/PhoneNumbers.aspx">Phone Numbers</a></li>
                                 <li><asp:Literal ID="inductionLiteral" runat="server"></asp:Literal></li>
                             </ul>
                         </li>
 
 
                         <!-- Mentorship -->
-                        <li class="dropdown hvr-underline-from-center">
-                            <a href="#" class="btn" role="button">Mentorship </a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mentorship <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="../memberpages/appraisal.aspx">Appraisal</a></li>
+                            </ul>
                         </li>
 
 
                         <!-- Techniques -->
-                        <li class="dropdown hvr-underline-from-center">
-                            <a href="../Member/Techniques.aspx">Techniques</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Techniques <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <asp:Literal ID="techniquesLiteral" runat="server"></asp:Literal>
+                            </ul>
                         </li>
 
 
                         <!-- Data Entry -->
-                        <li class="dropdown hvr-underline-from-center">
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Entry <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <asp:Literal ID="dataEntryLiteral" runat="server"></asp:Literal>
@@ -116,27 +120,35 @@
 
 
                         <!-- Dose Calculations -->
-                        <li class="dropdown hvr-underline-from-center">
-                            <a href="#" >Dose Calculations</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dose Calculations <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <asp:Literal ID="doseCalcLiteral" runat="server"></asp:Literal>
                             </ul>
                         </li>
 
-                        <%--admin position--%>
-                         <!-- Admin -->
-                        <%--style="visibility:hidden"--%>
-                        <li runat= "server" id="adminDrop" class="dropdown" >
+
+                        <!-- Admin -->
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle hvr-underline-from-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
-                            <ul class="dropdown-menu">                                
+                            <ul class="dropdown-menu">
+
                                 <li><a href="Approvals.aspx">Approvals</a></li>
-                                <li><a href="../Admin/AuthoriseUser.aspx">User Database</a></li>
-                                <li role ="separator" class="dropdown-divider"></li>
-                                <li><a href="../Admin/CreatePage.aspx">Add Task Header</a></li>
-                                <li><a href="SignOffSheetEdit.aspx">Sign Off Task</a></li>
-                                <li><a href="DeletePage.aspx">Delete Task</a></li>                     
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Edits <span class="caret caret-right"> </span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="CreatePage.aspx">Add Page</a></li>
+                                        <li><a href="SignOffSheetEdit.aspx">Add Task</a></li>
+                                        <li><a href="DeletePage.aspx">Delete Page</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="AuthoriseUser.aspx">User Database</a></li>
+
                             </ul>
-                        </li>                        
+                        </li>
+
                     </ul>
 
                 </div>

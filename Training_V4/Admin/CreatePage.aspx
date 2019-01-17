@@ -47,6 +47,15 @@
                     </asp:DropDownList>
                 </div>
 
+                <br />
+                <br />
+                <br />
+                <div class="col-md-12">
+                    <h3>Select participating students</h3>
+
+
+                </div>
+
                 <div class="col-md-12" id="InductionButtonContainer">
                     <asp:Button ID="CreateButton" CssClass="btn btn-new1" runat="server" OnClick="btnCreate_Click" Text="Create" />
                 </div>
