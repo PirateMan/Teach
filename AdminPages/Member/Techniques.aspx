@@ -8,20 +8,59 @@
 </asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="BodyPH1">
- 
+    <asp:GridView 
+        ID="TechniquesGridView" 
+        runat="server" AutoGenerateColumns="False" 
+        DataSourceID="techniquesDataSource"
+        DataKeyNames="ID"
+        >
+        <Columns>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <asp:Label ID="techniquesLabelID" Visible="false" runat="server" Text='<%# Eval("ID") %>'></asp:Label>
+                </ItemTemplate>                
+            </asp:TemplateField>
+            
+            <asp:TemplateField>
+                <HeaderTemplate>
+                    Task Name
+                </HeaderTemplate>
+                <EditItemTemplate>
+                    <asp:TextBox ID="Task_NameTextBox" style="text-align: center;" Width="100px" runat="server" Text='<%# Eval("Task_Name") %>'></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="Task_NameLabel" Width="80px" CssClass="SmallDefaultBoldText" runat="server" Text='<%# Eval("Task_Name") %>'></asp:Label>
+                </ItemTemplate>
+                <ItemStyle Width="110px" HorizontalAlign="Center" />
+            </asp:TemplateField>
+        </Columns>
 
-                <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False" DataKeyNames="ID" Height="169px" Width="993px">
-                    <Columns>
-                        <asp:BoundField DataField="Task_Name" HeaderText="Task_Name" SortExpression="Task_Name" />
-                        <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
-                    </Columns>
+
+
+
+
+
+
+
+
+
+
+
+
     </asp:GridView>
 
 
+    <asp:ObjectDataSource ID="techniquesDataSource" runat="server" 
+        SelectMethod="Entry" 
+        TypeName="TrainingDBEntities1">
 
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:TrainingDBConnectionString %>" SelectCommand="SELECT DISTINCT Task.ID, Task.UID, Task.Task_Name, Task.Description, Task.Module_Type_ID FROM [Case] INNER JOIN Task ON [Case].Task_ID = Task.ID INNER JOIN [User] ON [Case].User_ID = [User].ID WHERE (Task.Module_Type_ID = 2)"></asp:SqlDataSource>
-    <br />
+    </asp:ObjectDataSource>
 
 
 
+
+
+    <div class="col-md-12">
+
+    </div>
 </asp:Content>
